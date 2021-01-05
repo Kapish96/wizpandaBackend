@@ -18,6 +18,11 @@ public class StudentRestController {
 
 	@Autowired
 	private StudentService studentService;
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public ResponseEntity<String> login(@RequestBody StudentVO studentVO) {
+		return new ResponseEntity<>("Successfully Login",HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/student/create", method = RequestMethod.POST)
 	public ResponseEntity<String> createStudent(@RequestBody StudentVO studentVO) {
