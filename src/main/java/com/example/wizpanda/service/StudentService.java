@@ -1,6 +1,7 @@
 package com.example.wizpanda.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -33,6 +34,17 @@ public class StudentService {
 				.build();
 		
 		studentDao.saveStudent(student);
+	}
+	
+	public void validateLogin(StudentVO studentVO) {
+		
+		Map<String, String> studentMap = studentDao.getStudents().stream().collect(Collectors.toMap(Student::getEmail, Student::getPassword));
+		if(studentMap.containsKey(studentVO.getEmail())) {
+			if(!studentMap.get(studentVO.getEmail()).equals(studentVO.getPassword()))
+			throw new RuntimeException("Email or Password is wrong");
+		} else {
+			throw new RuntimeException("Email doesn't exist");
+		}
 	}
 	
 	public List<StudentVO> getAllStudentsList(){

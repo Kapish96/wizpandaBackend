@@ -22,7 +22,15 @@ public class StudentRestController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(@RequestBody StudentVO studentVO) {
-		return new ResponseEntity<>("Successfully Login", HttpStatus.OK);
+		try {
+			studentService.validateLogin(studentVO);
+			return new ResponseEntity<>("Successfully Login", HttpStatus.OK);
+		} catch(RuntimeException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+		} catch(Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 	}
 
 	@RequestMapping(value = "/student/create", method = RequestMethod.POST)
