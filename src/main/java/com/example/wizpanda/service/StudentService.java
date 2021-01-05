@@ -34,4 +34,18 @@ public class StudentService {
 		studentDao.saveStudent(student);
 	}
 	
+	public List<StudentVO> getAllStudentsList(){
+		List<Student> studentsList = studentDao.getStudents();
+		List<StudentVO> studentVOList = studentsList.stream().map(s -> {
+			
+				StudentVO studentVO = StudentVO.builder()
+						.name(s.getName())
+						.email(s.getEmail())
+						.number(s.getNumber())
+						.build();
+				return studentVO;
+			
+		}).collect(Collectors.toList());
+		return studentVOList;
+	}
 }

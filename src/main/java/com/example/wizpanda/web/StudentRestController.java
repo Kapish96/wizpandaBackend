@@ -18,15 +18,23 @@ public class StudentRestController {
 
 	@Autowired
 	private StudentService studentService;
-	
-	@RequestMapping(value="/student/create", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/student/create", method = RequestMethod.POST)
 	public ResponseEntity<String> createStudent(@RequestBody StudentVO studentVO) {
 		try {
 			studentService.createStudent(studentVO);
-			return new ResponseEntity<>("Successfully SignedUp",HttpStatus.OK);
-		} catch(Exception e) {
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Successfully SignedUp", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		
+
 	}
+
+	@RequestMapping(value = "/students")
+	public List<StudentVO> getAllStudent() {
+
+		return studentService.getAllStudentsList();
+
+	}
+
 }
