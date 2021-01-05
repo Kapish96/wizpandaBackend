@@ -22,4 +22,16 @@ public class StudentService {
 		this.studentDao = studentDao;
 	}
 	
+	@Transactional
+	public void createStudent(StudentVO studentVO) {
+		Student student = new Student().builder()
+				.name(studentVO.getName())
+				.email(studentVO.getEmail())
+				.number(studentVO.getNumber())
+				.password(studentVO.getPassword())
+				.build();
+		
+		studentDao.saveStudent(student);
+	}
+	
 }
