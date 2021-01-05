@@ -3,6 +3,7 @@ package com.example.wizpanda.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,10 +19,10 @@ public class StudentRestController {
 
 	@Autowired
 	private StudentService studentService;
-	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(@RequestBody StudentVO studentVO) {
-		return new ResponseEntity<>("Successfully Login",HttpStatus.OK);
+		return new ResponseEntity<>("Successfully Login", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/student/create", method = RequestMethod.POST)
@@ -29,8 +30,10 @@ public class StudentRestController {
 		try {
 			studentService.createStudent(studentVO);
 			return new ResponseEntity<>("Successfully SignedUp", HttpStatus.OK);
+		} catch(DataIntegrityViolationException e) {
+			return new ResponseEntity<>("Email Already Exist or Mobile Number too long", HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Error while creating account", HttpStatus.BAD_REQUEST);
 		}
 
 	}

@@ -24,6 +24,7 @@ public class StudentService {
 	
 	@Transactional
 	public void createStudent(StudentVO studentVO) {
+		
 		Student student = new Student().builder()
 				.name(studentVO.getName())
 				.email(studentVO.getEmail())

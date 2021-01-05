@@ -20,11 +20,9 @@ public class StudentDao {
 	
 	public void saveStudent(Student student) {
 		studentRepository.save(student);
-		System.err.println(studentRepository.findAll().size());
 	}
 	
 	public List<Student> getStudents(){
-		System.err.println(studentRepository.findAll().size());
 		return studentRepository.findAll();
 	}
 }
