@@ -26,7 +26,8 @@ public class StudentRestController {
 	@Autowired
 	private StudentService studentService;
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value = "/login", method = RequestMethod.POST, produces=MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> login(@RequestBody StudentVO studentVO) {
 		try {
 			LOGGER.info("Request to Validate Student");
@@ -56,6 +57,7 @@ public class StudentRestController {
 
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value = "/students")
 	public List<StudentVO> getAllStudent() {
 		LOGGER.info("Request to Fetch all Students account");
