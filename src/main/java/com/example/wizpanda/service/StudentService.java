@@ -49,6 +49,7 @@ public class StudentService {
 		} else {
 			throw new RuntimeException("Email doesn't exist");
 		}
+		LOGGER.info("User Validated Successfully");
 	}
 
 	public List<StudentVO> getAllStudentsList() {
