@@ -31,8 +31,8 @@ public class StudentRestController {
 	public ResponseEntity<String> login(@RequestBody StudentVO studentVO) {
 		try {
 			LOGGER.info("Request to Validate Student");
-			studentService.validateLogin(studentVO);
-			return new ResponseEntity<>("Successfully Login", HttpStatus.OK);
+			String name = studentService.validateLogin(studentVO);
+			return new ResponseEntity<>(name, HttpStatus.OK);
 		} catch(RuntimeException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
 		} catch(Exception e) {
